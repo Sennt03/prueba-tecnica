@@ -1,17 +1,32 @@
-FROM node:lts 
+FROM node:lts AS base
+WORKDIR /app
+RUN npm install -g @angular/cli@latest
 
-WORKDIR /app 
+FROM base AS dependencies
 
-RUN npm install -g @angular/cli@latest 
+COPY repo-interview-main/package*.json ./repo-interview-main/
+RUN cd repo-interview-main && npm ci --only=production || npm install --only=production
 
-COPY repo-interview-main/package*.json repo-interview-main/ 
-COPY frontend/package*.json frontend/ 
+COPY frontend/package*.json ./frontend/
+RUN cd frontend && npm ci || npm install
 
-RUN cd repo-interview-main && (npm ci || npm install) 
-RUN cd frontend && (npm ci || npm install) 
+FROM base AS final
 
-COPY . . 
+RUN addgroup --system --gid 1001 nodeuser
+RUN adduser --system --uid 1001 nodeuser
 
-EXPOSE 3002 4200 
+WORKDIR /app
 
-CMD sh -c "cd repo-interview-main && npm run start:dev & \ cd /app/frontend && ng serve --host 0.0.0.0 --poll=2000 & \ wait"
+COPY --from=dependencies /app/repo-interview-main/node_modules ./repo-interview-main/node_modules
+COPY --from=dependencies /app/frontend/node_modules ./frontend/node_modules
+
+COPY repo-interview-main/ ./repo-interview-main/
+COPY frontend/ ./frontend/
+
+RUN chown -R nodeuser:nodeuser /app
+
+USER nodeuser
+
+EXPOSE 3002 4200
+
+CMD sh -c "cd repo-interview-main && npm run start:dev & cd /app/frontend && ng serve --host 0.0.0.0 --poll=2000 & wait"
