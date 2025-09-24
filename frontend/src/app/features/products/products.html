@@ -1,0 +1,38 @@
+<header class="navbar">
+  <div class="container">
+    <h1 class="brand">David Ruiz - Prueba Técnica</h1>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="container content-container">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="info-tab" (click)="toggleModal()">
+    <i class="fa-solid fa-circle-info"></i>
+    <span class="tab-text">Info</span>
+  </div>
+
+  <div class="info-modal" [class.active]="modalOpen()">
+    <div class="modal-content">
+      <button class="modal-close" (click)="toggleModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <h2 class="modal-title">
+        <i class="fa-solid fa-code"></i>
+        Especificaciones proyecto Angular
+      </h2>
+      <ul class="modal-specs">
+        <li><i class="fa-solid fa-bolt"></i> Angular 20 + Zoneless</li>
+        <li><i class="fab fa-html5"></i> Diseño HTML y CSS PURO</li>
+        <li><i class="fa-solid fa-circle-notch"></i> Lazy Loading de módulos</li>
+        <li><i class="fa-solid fa-cube"></i> Standalone Components</li>
+        <li><i class="fa-solid fa-mobile-screen-button"></i> Responsive y Mobile-first</li>
+        <li><i class="fas fa-code-branch"></i> Clean Code & SOLID Principles</li>
+        <li><i class="fa-solid fa-star"></i> Animaciones y Transiciones suaves</li>
+        <li><i class="fa-solid fa-check"></i> ESLint + Prettier integrados</li>
+      </ul>
+    </div>
+  </div>
+</main>

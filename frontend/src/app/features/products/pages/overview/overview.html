@@ -1,0 +1,74 @@
+<div class="overview-header">
+  <app-filter [(filterText)]="filterText"></app-filter>
+  <button routerLink="/products/create" class="btn-add">Agregar</button>
+</div>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>Logo</th>
+        <th
+          (click)="toggleSort('name')"
+          [ngClass]="{
+            'sorted-asc': sortField() == 'name' && sortAsc(),
+            'sorted-desc': sortField() == 'name' && !sortAsc(),
+          }"
+        >
+          Nombre <i class="fa-solid fa-arrow-up-wide-short"></i>
+        </th>
+        <th
+          (click)="toggleSort('description')"
+          [ngClass]="{
+            'sorted-asc': sortField() == 'description' && sortAsc(),
+            'sorted-desc': sortField() == 'description' && !sortAsc(),
+          }"
+        >
+          Descripción <i class="fa-solid fa-arrow-up-wide-short"></i>
+        </th>
+        <th
+          (click)="toggleSort('releaseDate')"
+          [ngClass]="{
+            'sorted-asc': sortField() == 'releaseDate' && sortAsc(),
+            'sorted-desc': sortField() == 'releaseDate' && !sortAsc(),
+          }"
+        >
+          Fecha de liberación <i class="fa-solid fa-arrow-up-wide-short"></i>
+        </th>
+        <th
+          (click)="toggleSort('restructureDate')"
+          [ngClass]="{
+            'sorted-asc': sortField() == 'restructureDate' && sortAsc(),
+            'sorted-desc': sortField() == 'restructureDate' && !sortAsc(),
+          }"
+        >
+          Fecha de reestructuración <i class="fa-solid fa-arrow-up-wide-short"></i>
+        </th>
+        <th>Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(product of paginatedProducts; track product.id){
+        <tr>
+          <td><img [src]="product.logo" alt="{{ product.name }}" class="product-logo" loading="lazy" /></td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.releaseDate }}</td>
+          <td>{{ product.restructureDate }}</td>
+          <td>
+            <app-actions-dropdown></app-actions-dropdown>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<app-paginator
+  [pageIndex]="pageIndex()"
+  [pageSize]="pageSize()"
+  [totalItems]="filteredProducts.length"
+  (prev)="prevPage()"
+  (next)="nextPage()"
+  (pageSizeChange)="changePageSize($event)"
+></app-paginator>

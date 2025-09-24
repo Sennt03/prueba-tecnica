@@ -1,0 +1,12 @@
+<div class="table-footer">
+  <span>{{ totalItems() }} resultados</span>
+  <div class="pagination">
+    <button (click)="prev.emit()"><i class="fa-solid fa-angle-left"></i></button>
+    <button (click)="next.emit()"><i class="fa-solid fa-angle-right"></i></button>
+    <select [value]="pageSize()" (change)="onPageSizeChange($event)">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+    </select>
+  </div>
+</div>

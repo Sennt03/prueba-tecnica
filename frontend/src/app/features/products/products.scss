@@ -1,0 +1,211 @@
+.navbar {
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: slideDown 0.6s ease-out;
+    padding: 0 2rem;
+}
+
+.navbar .brand {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #fff;
+    text-align: center;
+}
+
+
+.main-content {
+    padding: 2rem 1rem;
+    min-height: calc(100vh - var(--header-height));
+    background-color: #f4f4f8;
+}
+
+.container.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--card-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.info-tab {
+    position: fixed;
+    bottom: 0px;
+    left: 50%;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.5rem 1.1rem;
+    border-radius: 30px 30px 0 0;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translate(-50%, 50px);
+    animation: fadeUpTab 0.6s forwards ease-out;
+}
+
+.info-tab:hover {
+    font-size: 1.2rem;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+}
+
+.info-tab .tab-text {
+    font-weight: 700;
+}
+
+.info-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.info-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #ffffff, #f0f0f5);
+    border-radius: 25px;
+    padding: 2.5rem 3rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: left;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.info-modal.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    color: #11101d;
+    font-size: 1.6rem;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.modal-specs {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 1rem;
+}
+
+.modal-specs li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 0;
+    font-size: 1.05rem;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.modal-specs li i {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeUpTab {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar .brand {
+        font-size: 1.3rem;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+
+    .info-tab {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .modal-content {
+        padding: 2rem 2rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        gap: 0.4rem;
+    }
+
+    .modal-specs li {
+        font-size: 1rem;
+        gap: 0.5rem;
+    }
+}

@@ -1,0 +1,14 @@
+input {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 8px rgba(79, 70, 229, 0.3);
+  outline: none;
+}
