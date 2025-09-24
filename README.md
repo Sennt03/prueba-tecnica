@@ -8,6 +8,7 @@ Se han aplicado varias prácticas modernas de Angular y arquitectura limpia:
 
 - **Angular 20 Signals + Zoneless**: Configurada sin `zone.js`, usando **signals** para la detección de cambios.
 - **CI/CD**: Se encuentra configurado eslint y prettier junto con los scripts respectivos en package.json
+- **Docker**: Contiene un Dockerfile unificado que ejecuta tanto backend y frontend a la vez (debajo pasos para ejecucion)
 - **Test**: Incluye la configuracion y test unitarios de todos los componentes, servicios, y guards.
 - **Proxy Angular**: Debido a limitaciones del backend (CORS), se utiliza un **proxy de Angular** (`frontend/proxy-conf.json` y configurado en `angular.json`) para redirigir las peticiones.
 - **Short Imports**: Configuración en `tsconfig.json` para importar con alias (`@services/...`) en lugar de rutas relativas largas. 
