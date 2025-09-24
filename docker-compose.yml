@@ -13,5 +13,4 @@ services:
     volumes:
       - ./repo-interview-main:/app/repo-interview-main
       - ./frontend:/app/frontend
-      - ./start.sh:/usr/local/bin/start.sh
     restart: unless-stopped
