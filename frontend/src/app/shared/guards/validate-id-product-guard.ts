@@ -1,4 +1,3 @@
-// validate-id-product.guard.ts
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { map, catchError, of } from 'rxjs';
