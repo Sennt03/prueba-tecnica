@@ -11,11 +11,7 @@ services:
       - "3002:3002"
       - "4200:4200"
     volumes:
-      - .:/app:cached
-      - repo_node_modules:/app/repo-interview-main/node_modules
-      - frontend_node_modules:/app/frontend/node_modules
+      - ./repo-interview-main:/app/repo-interview-main
+      - ./frontend:/app/frontend
+      - ./start.sh:/usr/local/bin/start.sh
     restart: unless-stopped
-
-volumes:
-  repo_node_modules:
-  frontend_node_modules:

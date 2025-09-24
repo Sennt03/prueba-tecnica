@@ -1,36 +1,41 @@
-# ---------- 1️⃣ Builder: instalar dependencias ----------
+# ---------- STAGE 1: Build ----------
 FROM node:lts AS builder
 
 WORKDIR /app
 
-# Copiar package.json para cache
+# Copiamos los package.json primero para aprovechar cache
 COPY repo-interview-main/package*.json repo-interview-main/
 COPY frontend/package*.json frontend/
 
-# Instalar dependencias
-RUN cd repo-interview-main && (npm ci || npm install)
-RUN cd frontend && (npm ci || npm install)
+# Instalamos dependencias en cada proyecto
+RUN cd repo-interview-main && npm ci || npm install
+RUN cd frontend && npm ci || npm install
 
-# Copiar el resto del código
+# Copiamos todo el código
 COPY . .
 
-# ---------- 2️⃣ Runtime: imagen final ----------
-FROM node:lts-slim AS runtime
+# ---------- STAGE 2: Runtime ----------
+FROM node:lts AS runtime
 
 WORKDIR /app
 
-# Copiar desde builder
+# Crear usuario no-root
+RUN groupadd -g 1001 appgroup && useradd -m -u 1001 -g appgroup -s /bin/sh appuser
+
+# Copiar desde build stage
 COPY --from=builder /app /app
 
-# Copiar script de inicio
-COPY start.sh /usr/local/bin/start.sh
-RUN chmod +x /usr/local/bin/start.sh
+# Dar permisos a la carpeta
+RUN chown -R appuser:appgroup /app
 
-# ⚠️ Cambiar a usuario no-root existente (ya creado por la imagen base)
-USER node
+# Cambiar a usuario no-root
+USER appuser
 
 # Exponer puertos
 EXPOSE 3002 4200
 
-# Comando
+# Asegurarse de que el script sea ejecutable
+RUN chmod +x /usr/local/bin/start.sh
+
+# Comando de inicio
 CMD ["/usr/local/bin/start.sh"]
