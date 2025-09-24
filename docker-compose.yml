@@ -1,16 +1,23 @@
 version: "3.8"
 
+
+
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: angular-node-single
-    container_name: angular_node_single
-    ports:
-      - "3002:3002"
-      - "4200:4200"
-    volumes:
-      - ./repo-interview-main:/app/repo-interview-main
-      - ./frontend:/app/frontend
-    restart: unless-stopped
+
+  app:
+
+    build:
+
+      context: .
+
+      dockerfile: Dockerfile
+
+    image: angular-node-single
+
+    container_name: angular_node_single
+
+    ports:
+
+      - "3002:3002"
+
+      - "4200:4200"
