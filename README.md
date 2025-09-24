@@ -50,17 +50,17 @@ Esto construye la imagen usando el Dockerfile de la raíz y levanta el contenedo
 - Frontend: http://localhost:4200
 - Backend:  http://localhost:3002
 
-## Levantar con Docker (build + run)
+## (Otras opciones) Levantar con Docker - build + run
 Si prefieres usar docker sin compose:
 
 Construir imagen:
 ```
-    docker build -t angular-node-single .
+docker build -t angular-node-single .
 ```
 
 Ejecutar contenedor:
 ```
-    docker run --rm -p 3002:3002 -p 4200:4200 --name angular_node_single angular-node-single
+docker run --rm -p 3002:3002 -p 4200:4200 --name angular_node_single angular-node-single
 ```
 
 ## Requisitos (para ejecutar manualmente)
@@ -72,29 +72,26 @@ Abrir dos terminales (uno para backend y otro para frontend):
 
 Backend:
 ```
-    cd repo-interview-main
-    npm install
-    npm run start:dev
+cd repo-interview-main
+npm install
+npm run start:dev
 ```
 
 Frontend:
 ```
-    cd frontend
-    npm install
-    ng s
+cd frontend
+npm install
+ng s
 ```
 
 # Ejecutar tests del frontend
-Asegúrate de tener Node v22+ y Angular CLI 20 instalado globalmente. 
-    Luego:
+* Asegúrate de tener Node v22+ y Angular CLI 20 instalado globalmente. 
+Luego:
 ```
-    cd frontend
-    npm install
-    ng test
+cd frontend
+npm install
+ng test
 ```
 
 # Notas adicionales
-
-Se incluye un Dockerfile unificado que permite levantar tanto backend como frontend en un único contenedor.
-
 En un entorno productivo se recomienda compilar el frontend con ng build y servirlo con Nginx o desde el backend, en lugar de usar ng serve.
