@@ -5,7 +5,7 @@ RUN npm install -g @angular/cli@latest
 FROM base AS dependencies
 
 COPY repo-interview-main/package*.json ./repo-interview-main/
-RUN cd repo-interview-main && npm ci --only=production || npm install --only=production
+RUN cd repo-interview-main && npm ci || npm install
 
 COPY frontend/package*.json ./frontend/
 RUN cd frontend && npm ci || npm install
@@ -30,3 +30,4 @@ USER nodeuser
 EXPOSE 3002 4200
 
 CMD sh -c "cd repo-interview-main && npm run start:dev & cd /app/frontend && ng serve --host 0.0.0.0 --poll=2000 & wait"
+
