@@ -10,3 +10,12 @@ services:
     ports:
       - "3002:3002"
       - "4200:4200"
+    volumes:
+      - .:/app:cached
+      - repo_node_modules:/app/repo-interview-main/node_modules
+      - frontend_node_modules:/app/frontend/node_modules
+    restart: unless-stopped
+
+volumes:
+  repo_node_modules:
+  frontend_node_modules:
