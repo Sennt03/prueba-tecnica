@@ -23,6 +23,7 @@ USER appuser
 
 EXPOSE 3002 4200
 
+
 CMD sh -c "cd repo-interview-main && npm run start:dev & \
-           cd frontend && ng serve --host 0.0.0.0 --poll=2000 & \
+           cd /app/frontend && ng serve --host 0.0.0.0 --poll=2000 & \
            wait"
