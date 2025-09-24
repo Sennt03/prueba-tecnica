@@ -49,6 +49,8 @@ docker-compose up --build
 Esto construye la imagen usando el Dockerfile de la raíz y levanta el contenedor que ejecuta backend y frontend en un mismo contenedor.
 
 ### Puertos por defecto
+- LISTO! - Una vez ejecutado docker-compose tendras la aplicación corriendo en:
+
 - Frontend: http://localhost:4200
 - Backend:  http://localhost:3002
 
