@@ -1,0 +1,94 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.modal {
+  background: rgba(20, 24, 38, 0.95);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 320px;
+  max-width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transform: scale(0.8);
+  opacity: 0;
+  animation: slideIn 0.3s ease forwards;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+.actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn.accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn.accept:hover {
+  background-color: #43a047;
+}
+
+.btn.cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn.cancel:hover {
+  background-color: #e53935;
+}

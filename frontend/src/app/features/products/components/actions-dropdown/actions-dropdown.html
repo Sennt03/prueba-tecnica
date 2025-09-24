@@ -1,7 +1,16 @@
 <div class="dropdown" (click)="toggle()">
   <i class="fa-solid fa-ellipsis-vertical"></i>
   <div class="dropdown-content" [class.active]="open()">
-    <button><i class="fa-solid fa-pen"></i> Editar</button>
-    <button><i class="fa-solid fa-trash"></i> Eliminar</button>
+    <button (click)="editProduct()"><i class="fa-solid fa-pen"></i> Editar</button>
+    <button (click)="deleteProduct(dialogDelete)"><i class="fa-solid fa-trash"></i> Eliminar</button>
   </div>
 </div>
+
+<app-confirm-dialog 
+      #dialogDelete
+      (accepted)="onAcceptDelete()"
+      text="¿Deseas eliminar este producto?">
+    </app-confirm-dialog>
+
+    
+<app-loading [show]="loading()"></app-loading>

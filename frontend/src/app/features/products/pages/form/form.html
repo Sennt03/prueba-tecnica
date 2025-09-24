@@ -1,54 +1,67 @@
 <div class="form-container">
   <div class="form-header">
-    <h2>Crear Producto</h2>
+    <h2>{{ edit() ? 'Editar' : 'Crear' }} Producto</h2>
     <button routerLink="/products" type="button" class="btn-back">
       <i class="fa-solid fa-arrow-left"></i> Regresar
     </button>
   </div>
 
-  <form class="product-form" novalidate>
+  <form class="product-form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="productId">Id</label>
-      <input type="text" id="productId" placeholder="Ingrese un Id único" />
-      <span class="error-message">Id requerido, 3-10 caracteres</span>
+      <input type="text" id="productId" placeholder="Ingrese un Id único" formControlName="id" />
+
+      @if (helperForm().getError('id') && !edit()) {
+        <span class="error-message">{{ helperForm().getError('id') }}</span>
+      }
     </div>
 
     <div class="form-group">
       <label for="productName">Nombre</label>
-      <input type="text" id="productName" placeholder="Ingrese el nombre del producto" />
-      <span class="error-message">Nombre requerido, 5-100 caracteres</span>
+      <input type="text" id="productName" placeholder="Ingrese el nombre del producto" formControlName="name" />
+      @if (helperForm().getError('name')) {
+        <span class="error-message">{{ helperForm().getError('name') }}</span>
+      }
     </div>
 
     <div class="form-group">
       <label for="productDescription">Descripción</label>
-      <textarea id="productDescription" placeholder="Ingrese una descripción"></textarea>
-      <span class="error-message">Descripción requerida, 10-200 caracteres</span>
+      <textarea id="productDescription" placeholder="Ingrese una descripción" formControlName="description"></textarea>
+      @if (helperForm().getError('description')) {
+        <span class="error-message">{{ helperForm().getError('description') }}</span>
+      }
     </div>
 
     <div class="form-group">
       <label>Logo</label>
-      <div class="custom-file-input" (click)="triggerFileInput()">
-        <span>{{ selectedFileName || 'Seleccionar archivo' }}</span>
-      </div>
-      <span class="error-message">Logo requerido</span>
-      <input #fileInput type="file" (change)="onFileSelected($event)" />
+      <input type="text" id="logo" placeholder="Url imagen: https://" formControlName="logo" />
+      @if (helperForm().getError('logo')) {
+        <span class="error-message">{{ helperForm().getError('logo') }}</span>
+      }
     </div>
 
     <div class="form-group">
       <label for="releaseDate">Fecha de Liberación</label>
-      <input type="date" id="releaseDate" (change)="onReleaseDateChange($event)" />
-      <span class="error-message">La fecha debe ser hoy o posterior</span>
+      <input type="date" id="releaseDate" (change)="onReleaseDateChange($event)" formControlName="date_release" />
+      @if (helperForm().getError('date_release')) {
+        <span class="error-message">{{ helperForm().getError('date_release') }}</span>
+      }
     </div>
 
     <div class="form-group">
-      <label for="reviewDate">Fecha de Revisión</label>
-      <input type="date" id="reviewDate" [value]="reviewDate" disabled />
-      <span class="error-message">La fecha debe ser un año posterior a la liberación</span>
+      <label for="date_revision">Fecha de Revisión</label>
+      <input type="date" id="date_revision" formControlName="date_revision" />
+      <!-- @if (helperForm().getError('date_revision')) {
+        <span class="error-message">{{ helperForm().getError('date_revision') }}</span>
+      } -->
     </div>
 
     <div class="form-actions">
-      <button routerLink="/products" type="button" class="btn-cancel">Cancelar</button>
-      <button type="submit" class="btn-submit">Crear Producto</button>
+      <button (click)="cleanForm()" type="button" class="btn-cancel">Limpiar</button>
+      <button type="submit" class="btn-submit">{{ edit() ? 'Editar': 'Crear' }} Producto</button>
     </div>
   </form>
 </div>
+
+<app-loading [show]="loading()"></app-loading>
+

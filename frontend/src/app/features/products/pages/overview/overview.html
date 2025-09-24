@@ -27,19 +27,19 @@
           Descripción <i class="fa-solid fa-arrow-up-wide-short"></i>
         </th>
         <th
-          (click)="toggleSort('releaseDate')"
+          (click)="toggleSort('date_release')"
           [ngClass]="{
-            'sorted-asc': sortField() == 'releaseDate' && sortAsc(),
-            'sorted-desc': sortField() == 'releaseDate' && !sortAsc(),
+            'sorted-asc': sortField() == 'date_release' && sortAsc(),
+            'sorted-desc': sortField() == 'date_release' && !sortAsc(),
           }"
         >
           Fecha de liberación <i class="fa-solid fa-arrow-up-wide-short"></i>
         </th>
         <th
-          (click)="toggleSort('restructureDate')"
+          (click)="toggleSort('date_revision')"
           [ngClass]="{
-            'sorted-asc': sortField() == 'restructureDate' && sortAsc(),
-            'sorted-desc': sortField() == 'restructureDate' && !sortAsc(),
+            'sorted-asc': sortField() == 'date_revision' && sortAsc(),
+            'sorted-desc': sortField() == 'date_revision' && !sortAsc(),
           }"
         >
           Fecha de reestructuración <i class="fa-solid fa-arrow-up-wide-short"></i>
@@ -53,15 +53,23 @@
           <td><img [src]="product.logo" alt="{{ product.name }}" class="product-logo" loading="lazy" /></td>
           <td>{{ product.name }}</td>
           <td>{{ product.description }}</td>
-          <td>{{ product.releaseDate }}</td>
-          <td>{{ product.restructureDate }}</td>
+          <td>{{ product.date_release }}</td>
+          <td>{{ product.date_revision }}</td>
           <td>
-            <app-actions-dropdown></app-actions-dropdown>
+            <app-actions-dropdown [product]="product" (reload)="removeProduct($event)"></app-actions-dropdown>
           </td>
         </tr>
       }
     </tbody>
   </table>
+
+  @if(!loading() && products().length <= 0){
+    <div class="empty">
+      <span>No hay productos creado</span>
+      <br>
+      <span>Crea uno!</span>
+    </div>
+  }
 </div>
 
 <app-paginator
@@ -72,3 +80,4 @@
   (next)="nextPage()"
   (pageSizeChange)="changePageSize($event)"
 ></app-paginator>
+

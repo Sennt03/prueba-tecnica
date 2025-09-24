@@ -1,19 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ActionsDropdown } from '@features/products/components/actions-dropdown/actions-dropdown';
 import { Filter } from '@features/products/components/filter/filter';
 import { Paginator } from '@features/products/components/paginator/paginator';
-
-interface Product {
-  id: number;
-  logo: string;
-  name: string;
-  description: string;
-  releaseDate: string;
-  restructureDate: string;
-}
+import { LsProduct } from '@models/products.models';
+import { ProductsService } from '@services/products.service';
+import { ConfirmDialogComponent } from '@shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-overview',
@@ -22,64 +16,40 @@ interface Product {
   templateUrl: './overview.html',
   styleUrls: ['./overview.scss'],
 })
-export class Overview {
+export class Overview implements OnInit{
+  
+  private productsService = inject(ProductsService)
+
+  loading = signal(false);
   filterText = signal('');
   pageSize = signal(5);
   pageIndex = signal(0);
 
-  products = signal<Product[]>([
-    {
-      id: 1,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto A',
-      description: 'Descripción A',
-      releaseDate: '01/01/2000',
-      restructureDate: '01/02/2001',
-    },
-    {
-      id: 2,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto B',
-      description: 'Descripción B',
-      releaseDate: '02/03/2002',
-      restructureDate: '03/04/2003',
-    },
-    {
-      id: 3,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto C',
-      description: 'Descripción C',
-      releaseDate: '05/06/2004',
-      restructureDate: '07/08/2005',
-    },
-    {
-      id: 4,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto D',
-      description: 'Descripción D',
-      releaseDate: '09/10/2006',
-      restructureDate: '11/12/2007',
-    },
-    {
-      id: 5,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto E',
-      description: 'Descripción E',
-      releaseDate: '01/01/2008',
-      restructureDate: '01/02/2009',
-    },
-    {
-      id: 6,
-      logo: 'https://via.placeholder.com/40',
-      name: 'Producto F',
-      description: 'Descripción F',
-      releaseDate: '03/03/2010',
-      restructureDate: '04/04/2011',
-    },
-  ]);
+  products = signal<LsProduct[]>([]);
 
-  sortField = signal<'name' | 'description' | 'releaseDate' | 'restructureDate'>('name');
+  sortField = signal<'name' | 'description' | 'date_release' | 'date_revision'>('name');
   sortAsc = signal(true);
+
+  ngOnInit(): void {
+    this.loadProducts()
+  }
+
+  loadProducts(){
+    this.loading.set(true)
+    this.productsService.getAll().subscribe({
+      next: res => {
+        this.loading.set(false)
+        this.products.set(res.data)
+      }
+    })
+  }
+
+  removeProduct(id: string){
+    this.products.update(products => {
+      const newProducts = products.filter(product => product.id != id)
+      return newProducts
+    })
+  }
 
   get filteredProducts() {
     const result = this.products().filter(
@@ -96,7 +66,7 @@ export class Overview {
     });
   }
 
-  toggleSort(field: 'name' | 'description' | 'releaseDate' | 'restructureDate') {
+  toggleSort(field: 'name' | 'description' | 'date_release' | 'date_revision') {
     if (this.sortField() === field) {
       this.sortAsc.set(!this.sortAsc());
     } else {
@@ -123,4 +93,5 @@ export class Overview {
     this.pageSize.set(size);
     this.pageIndex.set(0);
   }
+
 }

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { ProductsComponent } from "./products";
+import { validateIdProductGuard } from "@shared/guards/validate-id-product-guard";
 
 export const ProductsRoutes: Routes = [
     {
@@ -16,7 +17,8 @@ export const ProductsRoutes: Routes = [
             },
             {
                 path: 'update/:id',
-                loadComponent: () => import('./pages/form/form').then(c => c.Form)
+                loadComponent: () => import('./pages/form/form').then(c => c.Form),
+                canActivate: [validateIdProductGuard]
             },
         ]
     }
