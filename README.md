@@ -41,7 +41,7 @@ cd prueba-tecnica
 ## Levantar todo con Docker Compose (asegurate de tener docker corriendo)
 Desde la raíz del repo (tras clonar):
 ```
-    docker-compose up --build
+docker-compose up --build
 ```
 
 Esto construye la imagen usando el Dockerfile de la raíz y levanta el contenedor que ejecuta backend y frontend en un mismo contenedor.
