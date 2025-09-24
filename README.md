@@ -93,5 +93,11 @@ npm install
 ng test
 ```
 
+Se encuentran realizados 49 tests en total, todos pasados:
+```bash
+Executed 49 of 49 SUCCESS (1.169 secs / 1.003 secs)
+TOTAL: 49 SUCCESS
+```
+
 # Notas adicionales
 En un entorno productivo se recomienda compilar el frontend con ng build y servirlo con Nginx o desde el backend, en lugar de usar ng serve.
