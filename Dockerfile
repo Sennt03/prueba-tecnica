@@ -10,9 +10,11 @@ RUN cd frontend && npm ci || npm install
 
 COPY . .
 
-FROM node:lts AS runtime
+FROM node:lts-slim AS runtime
 
 WORKDIR /app
+
+RUN npm install -g @angular/cli@latest
 
 RUN groupadd -g 1001 appgroup && useradd -m -u 1001 -g appgroup -s /bin/sh appuser
 
