@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { LsProduct, LsResAll, LsResCreate, LsResMessage } from '@models/products.models';
-import { environment } from 'environments/envitonment';
+import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
