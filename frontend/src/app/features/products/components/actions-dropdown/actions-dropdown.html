@@ -9,7 +9,7 @@
 <app-confirm-dialog 
       #dialogDelete
       (accepted)="onAcceptDelete()"
-      text="¿Deseas eliminar este producto?">
+      [text]="text()">
     </app-confirm-dialog>
 
     

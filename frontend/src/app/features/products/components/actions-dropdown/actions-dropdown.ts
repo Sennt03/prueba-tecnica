@@ -24,6 +24,8 @@ export class ActionsDropdown {
   product = input.required<LsProduct>()
   reload = output<string>()
 
+  text = signal('¿Deseas eliminar?')
+
   toggle() {
     const previous = ActionsDropdown.openDropdownRef();
     if (previous && previous !== this) {
@@ -45,6 +47,7 @@ export class ActionsDropdown {
   }
 
   deleteProduct(dialog: ConfirmDialogComponent){
+    this.text.set(`¿Estas seguro de eliminar el producto "${this.product().name}"?`)
     dialog.open()
   }
 

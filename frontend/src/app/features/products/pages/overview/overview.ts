@@ -55,7 +55,9 @@ export class Overview implements OnInit{
     const result = this.products().filter(
       (p) =>
         p.name.toLowerCase().includes(this.filterText().toLowerCase()) ||
-        p.description.toLowerCase().includes(this.filterText().toLowerCase()),
+        p.description.toLowerCase().includes(this.filterText().toLowerCase()) ||
+        p.date_release.toString().includes(this.filterText().toLowerCase()) ||
+        p.date_revision.toString().includes(this.filterText().toLowerCase())
     );
     return result.sort((a, b) => {
       const fieldA = a[this.sortField()];
