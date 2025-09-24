@@ -4,9 +4,11 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
-    image: angular-node-single
-    container_name: angular_node_single
     ports:
       - "3002:3002"
       - "4200:4200"
+    volumes:
+      - ./frontend:/app/frontend
+      - ./repo-interview-main:/app/repo-interview-main
+      - /app/frontend/node_modules
+      - /app/repo-interview-main/node_modules
